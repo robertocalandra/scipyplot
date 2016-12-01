@@ -1,11 +1,11 @@
 
 from __future__ import print_function
 import sys
-import R.log as log
+import code.log as log
 
 
 def save2file(fig, nameFile, fileFormat='pdf', verbosity=1, indent=0, dpi=100):
-    '''
+    """
 
     :param fig:
     :param nameFile:
@@ -14,7 +14,7 @@ def save2file(fig, nameFile, fileFormat='pdf', verbosity=1, indent=0, dpi=100):
     :param indent:
     :param dpi:
     :return:
-    '''
+    """
     fullNameFile = nameFile + '.' + fileFormat
     log.cnd_msg(verbosity, 0, 'Saving to file: ' + fullNameFile, indent_depth=indent)
     try:

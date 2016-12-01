@@ -1,9 +1,11 @@
 from __future__ import division, print_function  # absolute_import
-from builtins import range
+
+import matplotlib.pyplot as plt
 
 import numpy as np
-import matplotlib.pyplot as plt
-from R.plot import color_over_time, color_over_trajectories, save2file
+from builtins import range
+
+from code.plot import color_over_time, color_over_trajectories, save2file
 
 # Generate some data
 n_curves = 10

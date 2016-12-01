@@ -1,28 +1,29 @@
 from __future__ import division, print_function  # absolute_import
-from builtins import range
 
-import numpy as np
+import itertools
 import matplotlib.pyplot as plt
 from matplotlib import rcParams
-import itertools
+
+import code.stats as rstats
+import numpy as np
 import scipy.stats
 import seaborn.apionly as sns
+from builtins import range
 
-from R.plot.save2file import save2file
-import R.stats as rstats
+from code.plot.save2file import save2file
 
 __author__ = 'Roberto Calandra'
 __version__ = '0.4'
 
 
 def rplot_data(data, x=None, typeplot='mean+68+95+99', legend=None, xlabel=None, ylabel=None):
-    '''
+    """
 
     :param data: list of np.matrix
     :param x: list of np.array (or single np.array) indicating the x axis of the corresponding data
     :param typeplot: String
     :return:
-    '''
+    """
     # TODO: implement me
     # Parse data
     out = typeplot.split("+")
@@ -43,6 +44,7 @@ def rplot_data(data, x=None, typeplot='mean+68+95+99', legend=None, xlabel=None,
     fig = rplot(y=Y, x=X, uncertainty=V, distribution=distribution, xlabel=xlabel, ylabel=ylabel, legend=legend)
 
     return fig
+
 
 def rscatter(y, x=None, colors=None, xlabel=None, ylabel=None,
           legend=None, size='halfpage', ratio='4:3', nameFile=False, yticks=None, xticks=None):
@@ -112,7 +114,7 @@ def rscatter(y, x=None, colors=None, xlabel=None, ylabel=None,
 
 def rplot(y, uncertainty=None, x=None, colors=None, alpha=0.60, distribution='68+95+99', xlabel=None, ylabel=None,
           legend=None, size='halfpage', ratio='4:3', nameFile=False, markerspace=0.10, yticks=None, xticks=None, markerbias = 0.03):
-    '''
+    """
 
     :param y: list of np.array, each being a curve to plot
     :param uncertainty: list of np.array, each representing the distribution to plot (can be either mean/variance or median/percentiles)
@@ -126,7 +128,7 @@ def rplot(y, uncertainty=None, x=None, colors=None, alpha=0.60, distribution='68
     :param size: Automatically adjust size fonts based on the final size of the image ('fullpage', 'halfpage')
     :param ratio:
     :return:
-    '''
+    """
 
     rcParams.update({'figure.autolayout': True})
     # plt.rc('text', usetex=True)
@@ -215,7 +217,7 @@ def rplot(y, uncertainty=None, x=None, colors=None, alpha=0.60, distribution='68
 
 def distribution_1D(y, percentiles, x=None, color=None, alpha=0.60, distribution='68+95+99', linewidth=4, linestyle='-',
                     marker=None, markersize=10, markevery=0.1):
-    '''
+    """
     Plot a distribution
     :param y:
     :param percentiles:
@@ -224,7 +226,7 @@ def distribution_1D(y, percentiles, x=None, color=None, alpha=0.60, distribution
     :param alpha: Transparency level used for plotting the distributions
     :param distribution: The percentiles of the data that are to be plotter
     :return:
-    '''
+    """
     n_points = len(y)
     if x is None:
         x = np.arange(n_points)
@@ -247,7 +249,7 @@ def distribution_1D(y, percentiles, x=None, color=None, alpha=0.60, distribution
 
 def gauss_1D(y, variance, x=None, color=None, alpha=0.60, distribution='68+95+99', linewidth=4, linestyle='-',
              marker=None, markersize=10, markevery=0.1):
-    '''
+    """
 
     :param y: np.array of dimensions n
     :param variance: np.array of dimensions n
@@ -256,7 +258,7 @@ def gauss_1D(y, variance, x=None, color=None, alpha=0.60, distribution='68+95+99
     :param distribution: string composed of the percentiles to be plotted separated by a +
     :param alpha: Transparency level
     :return:
-    '''
+    """
     n_points = len(y)
     if x is None:
         x = np.arange(n_points)

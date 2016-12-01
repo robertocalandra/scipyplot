@@ -9,12 +9,12 @@ from matplotlib import rcParams
 import itertools
 import scipy.stats
 import seaborn.apionly as sns
-from R.plot.utils.niceFigure import niceFigure
+from code.plot.utils.niceFigure import niceFigure
 
 
 def trajectory(x, y, z=None, interpolate=None, mark_init=True, mark_end=True,
                force_color_init=None, force_color_end=None, cmap=cm.coolwarm, linewidth=2):
-    '''
+    """
     Wrapper for color_over_time
     :param x:
     :param y:
@@ -26,7 +26,7 @@ def trajectory(x, y, z=None, interpolate=None, mark_init=True, mark_end=True,
     :param force_color_end:
     :param cmap:
     :return:
-    '''
+    """
     color_over_time(x=x, y=y, z=z, interpolate=interpolate, mark_init=mark_init, mark_end=mark_end,
                     force_color_init=force_color_init, force_color_end=force_color_end, cmap=cmap)
 
@@ -91,7 +91,7 @@ def color_over_trajectories(x, y, c=None, mark_init=True, mark_end=True, cmap=cm
 
 def color_over_time(x, y, z=None, interpolate=None, mark_init=True, mark_end=True,
                     force_color_init=None, force_color_end=None, cmap=cm.coolwarm, linewidth=2):
-    '''
+    """
 
     :param x:
     :param y:
@@ -103,7 +103,7 @@ def color_over_time(x, y, z=None, interpolate=None, mark_init=True, mark_end=Tru
     :param force_color_end:
     :param cmap:
     :return:
-    '''
+    """
 
     # TODO: use z
     # niceFigure()
