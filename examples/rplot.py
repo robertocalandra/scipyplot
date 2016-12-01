@@ -1,6 +1,6 @@
 
 import numpy as np
-from R.plot import rplot, distribution_1D, rplot_data
+from scypyplot.plot import rplot, distribution_1D, rplot_data
 import matplotlib.pyplot as plt
 import scipy.stats as stats
 
@@ -35,6 +35,7 @@ plt.show()
 NUM_SAMPLES = 500000  # Number curves within each distribution (e.g., the number of repetitions of each experiment)
 NUM_ITER = 10  # Number iterations
 SKEW_PARAMS = [-10, 0]  # One skewed distribution and one Gaussian
+
 
 def randn_skew_fast(N, alpha=0.0, mean=0.0, scale=1.0):
     sigma = alpha / np.sqrt(1.0 + alpha**2)

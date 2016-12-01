@@ -1,5 +1,5 @@
 from __future__ import print_function
-from code.utils import indent
+from scypyplot.utils import indent
 from colorama import Fore
 # Set default logging handler to avoid "No handler found" warnings.
 import logging

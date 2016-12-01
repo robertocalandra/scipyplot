@@ -1,7 +1,7 @@
 from __future__ import print_function
 
 from colorama import Fore
-import code.utils as rutils
+import scypyplot.utils as rutils
 import sys
 
 

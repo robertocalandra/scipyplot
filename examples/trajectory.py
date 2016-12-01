@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from builtins import range
 
-from code.plot import color_over_time, color_over_trajectories, save2file
+from scypyplot.plot import color_over_time, color_over_trajectories, save2file
 
 # Generate some data
 n_curves = 10
