@@ -9,7 +9,7 @@ from matplotlib import rcParams
 import itertools
 import scipy.stats
 import seaborn.apionly as sns
-from scypyplot.plot.utils.niceFigure import niceFigure
+from scipyplot.plot.utils.niceFigure import niceFigure
 
 
 def trajectory(x, y, z=None, interpolate=None, mark_init=True, mark_end=True,

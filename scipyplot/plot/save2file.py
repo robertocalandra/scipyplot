@@ -1,7 +1,7 @@
 
 from __future__ import print_function
 import sys
-import scypyplot.log as log
+import scipyplot.log as log
 
 
 def save2file(fig, nameFile, fileFormat='pdf', verbosity=1, indent=0, dpi=100):

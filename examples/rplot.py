@@ -1,6 +1,6 @@
 
 import numpy as np
-from scypyplot.plot import rplot, distribution_1D, rplot_data
+from scipyplot.plot import rplot, distribution_1D, rplot_data
 import matplotlib.pyplot as plt
 import scipy.stats as stats
 

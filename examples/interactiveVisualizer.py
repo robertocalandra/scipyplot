@@ -11,7 +11,7 @@ def plotter(index):
     plt.plot(x, y)
     print('y = sin(' + str(index) + ' * x)')
 
-import scypyplot.plot as rplot
+import scipyplot.plot as rplot
 
 print('To change figure use the arrows')
 print('To close the figure press \'q\' ')

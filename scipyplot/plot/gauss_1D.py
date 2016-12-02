@@ -4,13 +4,13 @@ import itertools
 import matplotlib.pyplot as plt
 from matplotlib import rcParams
 
-import scypyplot.stats as rstats
+import scipyplot.stats as rstats
 import numpy as np
 import scipy.stats
 import seaborn.apionly as sns
 from builtins import range
 
-from scypyplot.plot.save2file import save2file
+from scipyplot.plot.save2file import save2file
 
 __author__ = 'Roberto Calandra'
 __version__ = '0.4'
