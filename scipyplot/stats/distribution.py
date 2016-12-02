@@ -29,12 +29,12 @@ def mean_percentile(data, des_percentiles='68+95+99'):
 
 
 def median_percentile(data, des_percentiles='68+95+99'):
-    '''
+    """
 
     :param data:
     :param des_percentiles: string with +separated values of the percentiles
     :return:
-    '''
+    """
     median = np.median(data, axis=0)
     out = np.array(map(int, des_percentiles.split("+")))
     for i in range(out.size):
@@ -44,6 +44,7 @@ def median_percentile(data, des_percentiles='68+95+99'):
     list_percentiles[1::2] = 100 - out  # Compute also the mirror percentile
     percentiles = np.percentile(data, list_percentiles, axis=0)
     return [median, percentiles]
+
 
 def percentileFromGaussian(mean, variance, percentile='68+95+99'):
     # assert 0 <= percentile <= 100, 'Percentile must be >0 <100; instead is %f' % percentile  # TODO: assert for both numpy.array and single numbers

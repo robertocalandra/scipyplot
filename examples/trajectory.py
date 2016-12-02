@@ -15,12 +15,12 @@ t = np.linspace(0, 1, n_curves)
 
 # Plot trajectories where the color change across time
 fig = color_over_time(x=x, y=y)
-save2file(fig, 'trajectory1', fileFormat='png')
+save2file(fig, 'trajectory1', fileFormat='pdf')
 plt.show()
 
 # Plot trajectories where the color change across the trajectories
 fig = color_over_trajectories(x=x, y=y)
-save2file(fig, 'trajectory2', fileFormat='png')
+save2file(fig, 'trajectory2', fileFormat='pdf')
 # ax = plt.gca()
 # print(ax)
 # print(fig)

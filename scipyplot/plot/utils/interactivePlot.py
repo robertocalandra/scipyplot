@@ -5,13 +5,16 @@ import matplotlib.pyplot as plt
 
 
 def interactivePlot(plotFunction, nplots, initial_idx=0):
-    '''
+    """
 
     :param plotFunction: pointer to the function that render the figures. the function should be in the form
         plotFunction(idx) with 0<idx<n_plots
     :param nplots: scalar
+    :param initial_idx:
     :return:
-    '''
+    """
+
+    # Inspired by http://stackoverflow.com/questions/18390461/scroll-backwards-and-forwards-through-matplotlib-plots
     global curr_idx
     curr_idx = initial_idx
 

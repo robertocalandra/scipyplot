@@ -4,14 +4,14 @@ import numpy as np
 
 
 def RGB2video(data, nameFile='video', verbosity=1, indent=0, framerate=24, codec='mpeg4', threads=4):
-    '''
+    """
 
     :param data: np.array N x H x W x 3
     :param nameFile:
     :param verbosity:
     :param indent:
     :return:
-    '''
+    """
     from moviepy.video.io.ffmpeg_writer import FFMPEG_VideoWriter as fwv
 
     # Write to FFMPEG
