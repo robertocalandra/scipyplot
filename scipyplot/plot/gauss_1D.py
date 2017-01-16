@@ -152,6 +152,7 @@ def rplot(y, uncertainty=None, x=None, color=None, alpha=0.60, distribution='68+
     :param markerbias:
     :return:
     """
+    # TODO: implement use color
 
     rcParams.update({'figure.autolayout': True})
     # plt.rc('text', usetex=True)
