@@ -6,6 +6,7 @@ A Python Toolbox for Creating Scientific Article's Figures
 
 **Under Development**
 
+*************
 
 Master branch
 -------------
@@ -16,16 +17,21 @@ Master branch
 .. image:: https://travis-ci.org/robertocalandra/scipyplot.svg?branch=master
     :target: https://travis-ci.org/robertocalandra/scipyplot
 
-.. image:: https://coveralls.io/repos/USERNAME/scipyplot/badge.png?branch=master
-    :target: https://coveralls.io/r/USERNAME/scipyplot?branch=master
+.. image:: https://coveralls.io/repos/github/robertocalandra/scipyplot/badge.svg?branch=master
+	:target: https://coveralls.io/github/robertocalandra/scipyplot?branch=master
 
-.. image:: https://landscape.io/github/USERNAME/scipyplot/master/landscape.png
-   :target: https://landscape.io/github/USERNAME/scipyplot/master
+.. image:: https://landscape.io/github/robertocalandra/scipyplot/master/landscape.svg?style=flat
+   :target: https://landscape.io/github/robertocalandra/scipyplot/master
+   :alt: Code Health
 
-To install the last stable build you can simply use::
+============
+Install
+============
+To install the last stable build we reccomend to use::
 
    pip install scipyplot
 
+*************
 
 Development branch
 ------------------

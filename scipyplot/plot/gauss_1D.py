@@ -13,7 +13,7 @@ from builtins import range
 from scipyplot.plot.save2file import save2file
 
 __author__ = 'Roberto Calandra'
-__version__ = '0.4'
+__version__ = '0.5'
 
 
 def rplot_data(data, x=None, typeplot='mean+68+95+99', legend=None, xlabel=None, ylabel=None):
@@ -51,6 +51,21 @@ def rplot_data(data, x=None, typeplot='mean+68+95+99', legend=None, xlabel=None,
 
 def rscatter(y, x=None, colors=None, xlabel=None, ylabel=None,
           legend=None, size='halfpage', ratio='4:3', nameFile=False, yticks=None, xticks=None):
+    """
+
+    :param y:
+    :param x:
+    :param colors:
+    :param xlabel:
+    :param ylabel:
+    :param legend:
+    :param size:
+    :param ratio:
+    :param nameFile:
+    :param yticks:
+    :param xticks:
+    :return:
+    """
 
     rcParams.update({'figure.autolayout': True})
     # plt.rc('text', usetex=True)
@@ -116,7 +131,7 @@ def rscatter(y, x=None, colors=None, xlabel=None, ylabel=None,
 
 
 def rplot(y, uncertainty=None, x=None, colors=None, alpha=0.60, distribution='68+95+99', xlabel=None, ylabel=None,
-          legend=None, size='halfpage', ratio='4:3', nameFile=False, markerspace=0.10, yticks=None, xticks=None, markerbias = 0.03):
+          legend=None, size='halfpage', ratio='4:3', nameFile=False, markerspace=0.10, yticks=None, xticks=None, markerbias=0.03):
     """
 
     :param y: list of np.array, each being a curve to plot
@@ -130,6 +145,11 @@ def rplot(y, uncertainty=None, x=None, colors=None, alpha=0.60, distribution='68
     :param legend:
     :param size: Automatically adjust size fonts based on the final size of the image ('fullpage', 'halfpage')
     :param ratio:
+    :param nameFile:
+    :param markerspace:
+    :param yticks:
+    :param xticks:
+    :param markerbias:
     :return:
     """
 
@@ -165,7 +185,6 @@ def rplot(y, uncertainty=None, x=None, colors=None, alpha=0.60, distribution='68
         n_curves = 1
 
     handle = []
-    hlegend = []
 
     # Plot central curves
     for i in range(n_curves):
@@ -183,7 +202,7 @@ def rplot(y, uncertainty=None, x=None, colors=None, alpha=0.60, distribution='68
         markerevery = (i*markerbias, markerspace)
         if (uncertainty is None) or (distribution is ''):
             # Plot only curve
-            hlegend.append(plt.plot(t, y[i],
+            handle.append(plt.plot(t, y[i],
                                    marker=marker.next(), markersize=markersize, markevery=markerevery,
                                    linestyle='-', linewidth=linewidth))
         else:
@@ -206,7 +225,7 @@ def rplot(y, uncertainty=None, x=None, colors=None, alpha=0.60, distribution='68
     if ylabel is not None:
         plt.ylabel(ylabel, fontsize=FONTSIZEFIG)
     if legend is not None:
-        plt.legend(hlegend, legend, fontsize=legendfontsize)
+        plt.legend(handle, legend, fontsize=legendfontsize)
     if xticks is not None:
         plt.xticks(xticks, fontsize=FONTSIZETICK)
         # TODO: ax.set_xlim(xticks[0, -1])
@@ -229,6 +248,11 @@ def distribution_1D(y, percentiles, x=None, color=None, alpha=0.60, distribution
     :param color: Color used for plotting the curve
     :param alpha: Transparency level used for plotting the distributions
     :param distribution: The percentiles of the data that are to be plotter
+    :param linewidth:
+    :param linestyle:
+    :param marker:
+    :param markersize:
+    :param markevery: scalar [0-1]
     :return:
     """
     n_points = len(y)
