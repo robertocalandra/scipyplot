@@ -22,6 +22,9 @@ def rplot_data(data, x=None, typeplot='mean+68+95+99', legend=None, xlabel=None,
     :param data: list of np.matrix
     :param x: list of np.array (or single np.array) indicating the x axis of the corresponding data
     :param typeplot: String
+    :param legend:
+    :param xlabel:
+    :param ylabel
     :return:
     """
     # TODO: implement me
@@ -162,6 +165,7 @@ def rplot(y, uncertainty=None, x=None, colors=None, alpha=0.60, distribution='68
         n_curves = 1
 
     handle = []
+    hlegend = []
 
     # Plot central curves
     for i in range(n_curves):
@@ -179,7 +183,7 @@ def rplot(y, uncertainty=None, x=None, colors=None, alpha=0.60, distribution='68
         markerevery = (i*markerbias, markerspace)
         if (uncertainty is None) or (distribution is ''):
             # Plot only curve
-            handle.append(plt.plot(t, y[i],
+            hlegend.append(plt.plot(t, y[i],
                                    marker=marker.next(), markersize=markersize, markevery=markerevery,
                                    linestyle='-', linewidth=linewidth))
         else:
@@ -202,7 +206,7 @@ def rplot(y, uncertainty=None, x=None, colors=None, alpha=0.60, distribution='68
     if ylabel is not None:
         plt.ylabel(ylabel, fontsize=FONTSIZEFIG)
     if legend is not None:
-        plt.legend(legend, fontsize=legendfontsize)
+        plt.legend(hlegend, legend, fontsize=legendfontsize)
     if xticks is not None:
         plt.xticks(xticks, fontsize=FONTSIZETICK)
         # TODO: ax.set_xlim(xticks[0, -1])
