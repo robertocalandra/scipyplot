@@ -49,13 +49,13 @@ def rplot_data(data, x=None, typeplot='mean+68+95+99', legend=None, xlabel=None,
     return fig
 
 
-def rscatter(y, x=None, colors=None, xlabel=None, ylabel=None,
+def rscatter(y, x=None, color=None, xlabel=None, ylabel=None,
           legend=None, size='halfpage', ratio='4:3', nameFile=False, yticks=None, xticks=None):
     """
 
     :param y:
     :param x:
-    :param colors:
+    :param color:
     :param xlabel:
     :param ylabel:
     :param legend:
@@ -130,14 +130,14 @@ def rscatter(y, x=None, colors=None, xlabel=None, ylabel=None,
     return fig
 
 
-def rplot(y, uncertainty=None, x=None, colors=None, alpha=0.60, distribution='68+95+99', xlabel=None, ylabel=None,
+def rplot(y, uncertainty=None, x=None, color=None, alpha=0.60, distribution='68+95+99', xlabel=None, ylabel=None,
           legend=None, size='halfpage', ratio='4:3', nameFile=False, markerspace=0.10, yticks=None, xticks=None, markerbias=0.03):
     """
 
     :param y: list of np.array, each being a curve to plot
     :param uncertainty: list of np.array, each representing the distribution to plot (can be either mean/variance or median/percentiles)
     :param x: list of np.array, each being the X of the curve to plot
-    :param colors:
+    :param color:
     :param alpha: if distribution is not None, this specify the transparency of the percentiles
     :param distribution: if distribution is not None, this specify which percentile to plot
     :param xlabel: string or None
@@ -183,6 +183,12 @@ def rplot(y, uncertainty=None, x=None, colors=None, alpha=0.60, distribution='68
         n_curves = len(y)
     else:
         n_curves = 1
+        y = [y]
+        if uncertainty is not None:
+            uncertainty = [uncertainty]
+        if x is not None:
+            x = [x]
+        # TODO: consider case of matrix with multiple curves
 
     handle = []
 
