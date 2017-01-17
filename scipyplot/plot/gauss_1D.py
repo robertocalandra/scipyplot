@@ -210,19 +210,19 @@ def rplot(y, uncertainty=None, x=None, color=None, alpha=0.60, distribution='68+
         if (uncertainty is None) or (distribution is ''):
             # Plot only curve
             handle.append(plt.plot(t, y[i],
-                                   marker=marker.next(), markersize=markersize, markevery=markerevery,
+                                   marker=next(marker), markersize=markersize, markevery=markerevery,
                                    linestyle='-', linewidth=linewidth))
         else:
             # Plot also distribution
             assert isinstance(uncertainty[i], np.ndarray)
             if np.squeeze(np.array(uncertainty[i])).ndim is 1:
                 handle.append(gauss_1D(y=y[i], x=t, variance=uncertainty[i], alpha=alpha,
-                                       marker=marker.next(), markersize=markersize, markevery=markerevery,
+                                       marker=next(marker), markersize=markersize, markevery=markerevery,
                                        linestyle='-', linewidth=linewidth,
                                        distribution=distribution))
             else:
                 handle.append(distribution_1D(y=y[i], x=t, percentiles=uncertainty[i], alpha=alpha,
-                                              marker=marker.next(), markersize=markersize, markevery=markerevery,
+                                              marker=next(marker), markersize=markersize, markevery=markerevery,
                                               linestyle='-', linewidth=linewidth,
                                               distribution=distribution))
 
