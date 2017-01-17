@@ -1,5 +1,6 @@
 numpy >= 1.11  # Matrices and math
 matplotlib >= 1.5  # Plot stuff
 seaborn >= 0.7  # Plot fancy stuff
-future  # Compatibility with python 3
+future  # Compatibility for python 2/3
+scipy
 colorama

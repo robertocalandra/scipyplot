@@ -1,5 +1,7 @@
 import unittest
 import numpy as np
+import matplotlib as mpl
+mpl.use('Agg')  # http://stackoverflow.com/questions/4931376/generating-matplotlib-graphs-without-a-running-x-server
 
 import scipyplot as spp
 

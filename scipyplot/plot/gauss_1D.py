@@ -215,7 +215,7 @@ def rplot(y, uncertainty=None, x=None, color=None, alpha=0.60, distribution='68+
         else:
             # Plot also distribution
             assert isinstance(uncertainty[i], np.ndarray)
-            if np.squeeze(np.array(uncertainty[i])).dim is 1:
+            if np.squeeze(np.array(uncertainty[i])).ndim is 1:
                 handle.append(gauss_1D(y=y[i], x=t, variance=uncertainty[i], alpha=alpha,
                                        marker=marker.next(), markersize=markersize, markevery=markerevery,
                                        linestyle='-', linewidth=linewidth,
