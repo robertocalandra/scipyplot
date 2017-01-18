@@ -11,10 +11,10 @@ def plotter(index):
     plt.plot(x, y)
     print('y = sin(' + str(index) + ' * x)')
 
-import scipyplot as rplot
+import scipyplot as spp
 
 print('To change figure use the arrows')
 print('To close the figure press \'q\' ')
 
-rplot.utils.interactivePlot(plotFunction=plotter, nplots=10, initial_idx=1)
+spp.plot.utils.interactivePlot(plotFunction=plotter, nplots=10, initial_idx=1)
 
