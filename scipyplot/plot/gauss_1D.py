@@ -88,8 +88,14 @@ def rscatter(y, x=None, color=None, xlabel=None, ylabel=None,
         markersize = 18
         legendfontsize = 20
 
-    fig = plt.figure(figsize=(10, 6))  # TODO: use ratio
-    ax = fig.add_subplot(1, 1, 1)
+    # See if a figure already exists, otherwise open a new one
+    rr = (10, 6)  # TODO: use ratio
+    fig = plt.gcf()
+    if fig is None:
+        fig = plt.figure(figsize=rr)
+        ax = fig.add_subplot(1, 1, 1)
+    else:
+        fig.set_size_inches(rr)
 
     if type(y) is list:
         n_curves = len(y)
@@ -131,7 +137,7 @@ def rscatter(y, x=None, color=None, xlabel=None, ylabel=None,
 
 
 def rplot(y, uncertainty=None, x=None, color=None, alpha=0.60, distribution='68+95+99', xlabel=None, ylabel=None,
-          legend=None, size='halfpage', ratio='4:3', nameFile=False, markerspace=0.10, yticks=None, xticks=None, markerbias=0.03):
+          legend=None, size='halfpage', ratio='4:3', nameFile=False, markerspace=0.10, yticks=None, xticks=None, markerbias=0.03, fig=fig):
     """
 
     :param y: list of np.array, each being a curve to plot
@@ -175,8 +181,14 @@ def rplot(y, uncertainty=None, x=None, color=None, alpha=0.60, distribution='68+
         markersize = 18
         legendfontsize = 20
 
-    fig = plt.figure(figsize=(10, 6))  # TODO: use ratio
-    ax = fig.add_subplot(1, 1, 1)
+    rr = (10, 6)  # TODO: use ratio
+    fig = plt.gcf()
+    if fig is None:
+        fig = plt.figure(figsize=rr)
+        ax = fig.add_subplot(1, 1, 1)
+    else:
+        fig.set_size_inches(rr)
+
     marker = itertools.cycle(('s', 'o', 'v', '^', '*'))
     linestyle = itertools.cycle(('-', '--'))
 
