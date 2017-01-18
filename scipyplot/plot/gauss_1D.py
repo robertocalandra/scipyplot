@@ -295,7 +295,7 @@ def distribution_1D(y, percentiles, x=None, color=None, alpha=0.60, distribution
 
 
 def gauss_1D(y, variance, x=None, color=None, alpha=0.60, distribution='68+95+99', linewidth=4, linestyle='-',
-             marker=None, markersize=10, markevery=0.1):
+             marker=None, markersize=10, markevery=0.1, label=None):
     """
 
     :param y: np.array of dimensions n

@@ -27,5 +27,9 @@ setup(name='scipyplot',
       packages=find_packages(),
       install_requires=requires,
       dependency_links=dependency_links,
-      zip_safe=True
+      zip_safe=True,
+      classifiers=[
+          'Programming Language :: Python :: 2',
+          'Programming Language :: Python :: 3',
+      ],
       )
