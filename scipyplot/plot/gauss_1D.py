@@ -306,9 +306,16 @@ def gauss_1D(y, variance, x=None, color=None, alpha=0.60, distribution='68+95+99
     :param alpha: Transparency level
     :return:
     """
+
     n_points = len(y)
     if x is None:
         x = np.arange(n_points)
+    x = np.squeeze(np.array(x))
+    y = np.squeeze(np.array(y))
+    variance = np.squeeze(np.array(variance))
+    assert x.ndim == 1, 'x must be a 1D np.array, instead ndim= %d' %(x.ndim)
+    assert y.ndim == 1, 'y must be a 1D np.array, instead ndim=  %d' %(y.ndim)
+    assert variance.ndim == 1, 'variance must be a 1D np.array, instead ndim=  %d' %(variance.ndim)
     assert len(y) == len(variance), 'Dimensions variance do not match dimensions y'
     assert len(y) == len(x), 'Dimensions x do not match dimensions y'
     if color is None:
