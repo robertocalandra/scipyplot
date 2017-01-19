@@ -1,19 +1,25 @@
 language: python
 python:
-  - "2.7"
-  - "3.4"
-  - "3.5"
+- '2.7'
+- '3.4'
+- '3.5'
 os:
-  - linux
+- linux
 before_install:
-  - sudo apt-get update
-  - sudo apt-get install -qq python-numpy python-scipy
+- sudo apt-get update
+- sudo apt-get install -qq python-numpy python-scipy
 install:
-  - pip install --upgrade pip
-  - travis_wait pip install -r requirements.txt
-  - python setup.py install
-  - pip install coveralls
-script: 
-  coverage run --source=scipyplot -m unittest discover test -v
-after_success: 
-  coveralls
+- pip install --upgrade pip
+- travis_wait pip install -r requirements.txt
+- python setup.py install
+- pip install coveralls
+script: coverage run --source=scipyplot -m unittest discover test -v
+after_success: coveralls
+deploy:
+  provider: pypi
+  user: roberto.calandra
+  password:
+    secure: UjTihDk5Aiw503h/mo7qQ580Y6yheKa+fNv9hJaa/j6YU5XIrIOdp7/T/n0TBIv6+uqOIllZYwA9tP8BsdxItD4P02UOB3/r47YFcHPwzWNVrHhT4TNbgDiJZiaqAddRpjWAJ8y19ad1zV19BxeqwYbztodpOAl/Bmiw33vjrz0HSy4frlcEicRqT+1us8z+QWBBf1ZDAufkVc7ooAhnzqozKeeXLCibssYOc+JHE5ZmrQZrYFMsKj8dn4hmLauiYeEcdudP0i0G7LfEVQ2uS5HZrdNZ8rd4/r91Vqjnk+qLkNziu6tnmlWyZ0b1xw/ibQdu8G4UkYtKdcOCwpYct663U/bT2efb67Sd2XK/txDNvedVFZ9wcSwo9VuLRJDcmrPbbYC+focggsDty3lxTtP8aLfGJb73F3JrqwWbtQaHBTn9WClZnUyRQea1/XL0UnjaTQS5NktiSAoeqJWlpMCi2Ju1L29TtHy0BHBjwAgSHSTnElQL4xnpGIjVRuSFIqjtLO/5YoQ9GZnqNa4NwN60qur6/w5+qZLwa5yle37n6lQEnCgeDL/ZIuvljVijHJcepY/qaNPJlKaV9wUWJbEe+aYJ5PV6qCT4fQdmYiZVt7K/dZp+ZowFfsNeXhLbN3fIKYs2QiqWkoFxPH7YR2b0MrCWvDDNsSlau16oyZg=
+  on:
+    tags: true
+    branch: master
