@@ -21,11 +21,15 @@ setup(name='scipyplot',
       url='https://github.com/robertocalandra/scipyplot',
       author='Roberto Calandra',
       author_email='roberto.calandra@berkeley.edu',
-      keywords='visualization',
+      keywords=['visualization', 'science'],
       long_description=read('README.rst'),
       license='LICENSE.txt',
       packages=find_packages(),
       install_requires=requires,
       dependency_links=dependency_links,
-      zip_safe=True
+      zip_safe=True,
+      classifiers=[
+          'Programming Language :: Python :: 2',
+          'Programming Language :: Python :: 3',
+      ],
       )

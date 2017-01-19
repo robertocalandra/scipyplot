@@ -88,8 +88,14 @@ def rscatter(y, x=None, color=None, xlabel=None, ylabel=None,
         markersize = 18
         legendfontsize = 20
 
-    fig = plt.figure(figsize=(10, 6))  # TODO: use ratio
-    ax = fig.add_subplot(1, 1, 1)
+    # See if a figure already exists, otherwise open a new one
+    rr = (10, 6)  # TODO: use ratio
+    fig = plt.gcf()
+    if fig is None:
+        fig = plt.figure(figsize=rr)
+        ax = fig.add_subplot(1, 1, 1)
+    else:
+        fig.set_size_inches(rr)
 
     if type(y) is list:
         n_curves = len(y)
@@ -131,7 +137,7 @@ def rscatter(y, x=None, color=None, xlabel=None, ylabel=None,
 
 
 def rplot(y, uncertainty=None, x=None, color=None, alpha=0.60, distribution='68+95+99', xlabel=None, ylabel=None,
-          legend=None, size='halfpage', ratio='4:3', nameFile=False, markerspace=0.10, yticks=None, xticks=None, markerbias=0.03):
+          legend=None, size='halfpage', ratio='4:3', nameFile=False, markerspace=0.10, yticks=None, xticks=None, markerbias=0.03, fig=None):
     """
 
     :param y: list of np.array, each being a curve to plot
@@ -175,8 +181,14 @@ def rplot(y, uncertainty=None, x=None, color=None, alpha=0.60, distribution='68+
         markersize = 18
         legendfontsize = 20
 
-    fig = plt.figure(figsize=(10, 6))  # TODO: use ratio
-    ax = fig.add_subplot(1, 1, 1)
+    rr = (10, 6)  # TODO: use ratio
+    if fig is None:  # Check is the figure is passed by argument
+        fig = plt.gcf()
+    if fig is None:  # Check if an existing figure exists
+        fig = plt.figure(figsize=rr)
+        ax = fig.add_subplot(1, 1, 1)
+    fig.set_size_inches(rr)
+
     marker = itertools.cycle(('s', 'o', 'v', '^', '*'))
     linestyle = itertools.cycle(('-', '--'))
 
@@ -283,7 +295,7 @@ def distribution_1D(y, percentiles, x=None, color=None, alpha=0.60, distribution
 
 
 def gauss_1D(y, variance, x=None, color=None, alpha=0.60, distribution='68+95+99', linewidth=4, linestyle='-',
-             marker=None, markersize=10, markevery=0.1):
+             marker=None, markersize=10, markevery=0.1, label=None):
     """
 
     :param y: np.array of dimensions n
@@ -294,9 +306,16 @@ def gauss_1D(y, variance, x=None, color=None, alpha=0.60, distribution='68+95+99
     :param alpha: Transparency level
     :return:
     """
+
     n_points = len(y)
     if x is None:
         x = np.arange(n_points)
+    x = np.squeeze(np.array(x))
+    y = np.squeeze(np.array(y))
+    variance = np.squeeze(np.array(variance))
+    assert x.ndim == 1, 'x must be a 1D np.array, instead ndim= %d' %(x.ndim)
+    assert y.ndim == 1, 'y must be a 1D np.array, instead ndim=  %d' %(y.ndim)
+    assert variance.ndim == 1, 'variance must be a 1D np.array, instead ndim=  %d' %(variance.ndim)
     assert len(y) == len(variance), 'Dimensions variance do not match dimensions y'
     assert len(y) == len(x), 'Dimensions x do not match dimensions y'
     if color is None:

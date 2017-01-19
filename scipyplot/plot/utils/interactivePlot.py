@@ -1,4 +1,4 @@
-from __future__ import division, print_function  # absolute_import
+from __future__ import division, print_function, absolute_import
 from builtins import range
 
 import matplotlib.pyplot as plt
@@ -8,9 +8,9 @@ def interactivePlot(plotFunction, nplots, initial_idx=0):
     """
 
     :param plotFunction: pointer to the function that render the figures. the function should be in the form
-        plotFunction(idx) with 0<idx<n_plots
-    :param nplots: scalar
-    :param initial_idx:
+        plotFunction(idx) with 0<idx<nplots
+    :param nplots: scalar. number of plots over which to iterate.
+    :param initial_idx: index of the plot used to initialize the visualization.
     :return:
     """
 

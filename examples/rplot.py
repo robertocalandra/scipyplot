@@ -54,10 +54,12 @@ for index, alpha_skew in enumerate(SKEW_PARAMS):
         t.append(randn_skew_fast(N=NUM_SAMPLES, alpha=alpha_skew, mean=X[index]))
     Y.append(np.array(t).transpose())
 
+plt.figure()
 fig = rplot_data(data=Y, typeplot='mean+68+95+99', legend=['Skewed', 'Gaussian'])
 ax = plt.gca()
 ax.set_title('Mean + percentiles')
 
+plt.figure()
 fig = rplot_data(data=Y, typeplot='median+68+95+99', legend=['Skewed', 'Gaussian'])
 ax = plt.gca()
 ax.set_title('Median + percentiles')
