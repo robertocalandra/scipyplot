@@ -1,8 +1,8 @@
 from __future__ import division, print_function, absolute_import
-from builtins import range
+from builtins import range, input
 
 import matplotlib.pyplot as plt
-
+from ..save2file import save2file
 
 def interactivePlot(plotFunction, nplots, initial_idx=0):
     """
@@ -21,11 +21,14 @@ def interactivePlot(plotFunction, nplots, initial_idx=0):
     def key_event(e):
         global curr_idx
 
-        if (e.key == "right") or (e.key == "up"):
+        if (e.key == "right") or (e.key == "up"): # Next plot
             curr_idx += 1
-        elif (e.key == "left") or (e.key == "down"):
+        elif (e.key == "left") or (e.key == "down"):  # Previous plot
             curr_idx -= 1
-        elif (e.key == "q"):
+        elif (e.key == "p"):  # Save to file
+            key = input("Insert name file to save: [default: figure].pdf") or 'figure'
+            save2file(fig=fig, nameFile=key, fileFormat='pdf')
+        elif (e.key == "q"):  # Quit
             plt.close()
             return
         else:
