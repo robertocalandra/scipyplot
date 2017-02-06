@@ -4,6 +4,7 @@ from builtins import range, input
 import matplotlib.pyplot as plt
 from ..save2file import save2file
 
+
 def interactivePlot(plotFunction, nplots, initial_idx=0):
     """
 
