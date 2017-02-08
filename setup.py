@@ -6,7 +6,11 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 requires = [
     'numpy >= 1.7'
     'matplotlib'
-    ]
+    'seaborn'
+    'future'
+    'scipy'
+    'colorama'
+]
 
 dependency_links = [
     ]

@@ -19,7 +19,7 @@ Master Branch
     :alt: Code Health
 
 .. image:: https://badge.fury.io/py/scipyplot.svg
-    :target: https://badge.fury.io/py/scipyplot.svg
+    :target: https://badge.fury.io/py/scipyplot
 
 ============
 Install

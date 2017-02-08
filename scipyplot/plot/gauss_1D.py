@@ -137,7 +137,8 @@ def rscatter(y, x=None, color=None, xlabel=None, ylabel=None,
 
 
 def rplot(y, uncertainty=None, x=None, color=None, alpha=0.60, distribution='68+95+99', xlabel=None, ylabel=None,
-          legend=None, size='halfpage', ratio='4:3', nameFile=False, markerspace=0.10, yticks=None, xticks=None, markerbias=0.03, fig=None):
+          legend=None, size='halfpage', ratio='4:3', nameFile=False,
+          usemarker='auto', markerspace=0.10, yticks=None, xticks=None, markerbias=0.03, fig=None):
     """
 
     :param y: list of np.array, each being a curve to plot
@@ -216,9 +217,16 @@ def rplot(y, uncertainty=None, x=None, color=None, alpha=0.60, distribution='68+
             else:
                 t = x
         # assert len(y[i]) == len(variance), 'Dimensions variance do not match dimensions y'
-        assert len(y[i]) == len(t), 'Dimensions x do not match dimensions y'
+        assert len(y[i]) == len(t), 'Dimensions x do not match dimensions y: %d - %d' % (len(y[i]), len(t))
         # TODO: something funny is happening with markerevery!!! non-uniform. compute sequence of points manually. markerevery = [0,1,2....]
+        # if usemarker is 'auto':
         markerevery = (i*markerbias, markerspace)
+        if usemarker is 'none':
+            pass
+        if usemarker is 'all':
+            pass
+
+
         if (uncertainty is None) or (distribution is ''):
             # Plot only curve
             handle.append(plt.plot(t, y[i],
@@ -244,7 +252,7 @@ def rplot(y, uncertainty=None, x=None, color=None, alpha=0.60, distribution='68+
     if ylabel is not None:
         plt.ylabel(ylabel, fontsize=FONTSIZEFIG)
     if legend is not None:
-        plt.legend(handle, legend, fontsize=legendfontsize)
+        plt.legend(legend, fontsize=legendfontsize)
     if xticks is not None:
         plt.xticks(xticks, fontsize=FONTSIZETICK)
         # TODO: ax.set_xlim(xticks[0, -1])
