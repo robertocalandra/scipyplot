@@ -226,7 +226,6 @@ def rplot(y, uncertainty=None, x=None, color=None, alpha=0.60, distribution='68+
         if usemarker is 'all':
             pass
 
-
         if (uncertainty is None) or (distribution is ''):
             # Plot only curve
             handle.append(plt.plot(t, y[i],
@@ -312,6 +311,11 @@ def gauss_1D(y, variance, x=None, color=None, alpha=0.60, distribution='68+95+99
     :param color:
     :param distribution: string composed of the percentiles to be plotted separated by a +
     :param alpha: Transparency level
+    :param linewidth:
+    :param linestyle:
+    :param marker:
+    :param markersize:
+    :param label:
     :return:
     """
 
