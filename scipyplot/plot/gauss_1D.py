@@ -258,6 +258,7 @@ def rplot(y, uncertainty=None, x=None, color=None, alpha=0.60, distribution='68+
     if ylabel is not None:
         plt.ylabel(ylabel, fontsize=FONTSIZEFIG)
     if legend is not None:
+        assert len(legend) == n_curves, 'Wrong number of legends!'
         plt.legend(legend, fontsize=legendfontsize)
     if xticks is not None:
         plt.xticks(xticks, fontsize=FONTSIZETICK)
