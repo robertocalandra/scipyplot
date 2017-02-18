@@ -44,6 +44,13 @@ def rplot_data(data, x=None, typeplot='mean+68+95+99', legend=None, xlabel=None,
             Y.append(mean)
             V.append(variance)
 
+    if X is not None:
+        if isinstance(X, np.ndarray):
+            X = [X] * len(Y)
+        else:
+            # Is it a list then?
+            assert len(X) == len(Y)
+
     fig = rplot(y=Y, x=X, uncertainty=V, distribution=distribution, xlabel=xlabel, ylabel=ylabel, legend=legend)
 
     return fig
