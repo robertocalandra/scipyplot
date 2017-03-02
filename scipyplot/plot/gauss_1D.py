@@ -1,4 +1,7 @@
-from __future__ import division, print_function  # absolute_import
+# Compatibility Python 2/3
+from __future__ import division, print_function, absolute_import
+from builtins import range
+# ----------------------------------------------------------------------------------------------------------------------
 
 import itertools
 import matplotlib.pyplot as plt
@@ -8,7 +11,6 @@ import scipyplot.stats as rstats
 import numpy as np
 import scipy.stats
 import seaborn.apionly as sns
-from builtins import range
 
 from scipyplot.plot.save2file import save2file
 
@@ -27,7 +29,8 @@ def rplot_data(data, x=None, typeplot='mean+68+95+99', legend=None, xlabel=None,
     :param ylabel
     :return:
     """
-    # TODO: implement me
+    if isinstance(data, np.ndarray):
+        data = [data]
     # Parse data
     out = typeplot.split("+")
     distribution = "+".join(out[1:])
@@ -57,7 +60,7 @@ def rplot_data(data, x=None, typeplot='mean+68+95+99', legend=None, xlabel=None,
 
 
 def rscatter(y, x=None, color=None, xlabel=None, ylabel=None,
-          legend=None, size='halfpage', ratio='4:3', nameFile=False, yticks=None, xticks=None):
+          legend=None, size='halfpage', ratio='4:3', nameFile=False, yticks=None, xticks=None, sizeMarkers=100):
     """
 
     :param y:
@@ -122,7 +125,7 @@ def rscatter(y, x=None, color=None, xlabel=None, ylabel=None,
             else:
                 t = x
 
-        handle.append(plt.scatter(t, y[i], color=next(palette)))
+        handle.append(plt.scatter(t, y[i], color=next(palette), s=sizeMarkers))
 
     # Make figure nice
     if xlabel is not None:
@@ -258,7 +261,7 @@ def rplot(y, uncertainty=None, x=None, color=None, alpha=0.60, distribution='68+
     if ylabel is not None:
         plt.ylabel(ylabel, fontsize=FONTSIZEFIG)
     if legend is not None:
-        assert len(legend) == n_curves, 'Wrong number of legends!'
+        # assert len(legend) == n_curves, 'Wrong number of legends!'
         plt.legend(legend, fontsize=legendfontsize)
     if xticks is not None:
         plt.xticks(xticks, fontsize=FONTSIZETICK)

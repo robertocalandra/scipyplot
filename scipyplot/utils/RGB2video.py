@@ -1,5 +1,9 @@
+# Compatibility Python 2/3
+from __future__ import division, print_function, absolute_import
+from builtins import range
+# ----------------------------------------------------------------------------------------------------------------------
+
 # import R.log as rlog
-import matplotlib.pyplot as plt
 import numpy as np
 
 
