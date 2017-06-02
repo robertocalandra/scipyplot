@@ -1,10 +1,14 @@
+# Compatibility Python 2/3
+from __future__ import division, print_function, absolute_import
+from builtins import range
+# ----------------------------------------------------------------------------------------------------------------------
 
-from __future__ import print_function
 import sys
 import scipyplot.log as log
+import matplotlib.pyplot as plt
 
 
-def save2file(fig, nameFile, fileFormat='pdf', verbosity=1, indent=0, dpi=100):
+def save2file(nameFile, fig=plt.gcf(), fileFormat='pdf', verbosity=1, indent=0, dpi=100):
     """
 
     :param fig:

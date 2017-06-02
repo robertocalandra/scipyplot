@@ -5,3 +5,4 @@ from .save2file import save2file
 from .training_process import training_process_3d, training_process_2d
 from .trajectory import color_over_trajectories, color_over_time, trajectory
 from .utils import *
+from .surface import surface, surface_bounds
