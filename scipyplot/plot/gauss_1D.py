@@ -1,4 +1,7 @@
-from __future__ import division, print_function  # absolute_import
+# Compatibility Python 2/3
+from __future__ import division, print_function, absolute_import
+from builtins import range
+# ----------------------------------------------------------------------------------------------------------------------
 
 import itertools
 import matplotlib.pyplot as plt
@@ -8,7 +11,6 @@ import scipyplot.stats as rstats
 import numpy as np
 import scipy.stats
 import seaborn.apionly as sns
-from builtins import range
 
 from scipyplot.plot.save2file import save2file
 
@@ -18,16 +20,22 @@ __version__ = '0.5'
 
 def rplot_data(data, x=None, typeplot='mean+68+95+99', legend=None, xlabel=None, ylabel=None):
     """
-
+    Plot curves from raw data (wrapper around rplot).
+    Given a matrix of data, this function automatically compute statistics (such as mean and var) and plot them.
+    Multiple curves (potentially with different lenght) can be plot simultaneously by passing a list of matrices.
     :param data: list of np.matrix
-    :param x: list of np.array (or single np.array) indicating the x axis of the corresponding data
-    :param typeplot: String
-    :param legend:
-    :param xlabel:
-    :param ylabel
+    :param x: list of np.array (or single np.array) indicating the x valued for the corresponding data
+    :param typeplot: String formatted as 'mean' or 'median' followed from the percentiles of the uncertainty curves
+        (interleaved by '+').
+        Example 1: 'mean+68+95+99' plot the mean and one shaded area for each corresponding 68/95/99 percentile
+        Example 2: 'median+68' Plot the median and the 68 percentile
+    :param legend: list of labels, one for each curve
+    :param xlabel: String. label for the x axis
+    :param ylabel: String. label for the y axis
     :return:
     """
-    # TODO: implement me
+    if isinstance(data, np.ndarray):
+        data = [data]
     # Parse data
     out = typeplot.split("+")
     distribution = "+".join(out[1:])
@@ -44,13 +52,20 @@ def rplot_data(data, x=None, typeplot='mean+68+95+99', legend=None, xlabel=None,
             Y.append(mean)
             V.append(variance)
 
+    if X is not None:
+        if isinstance(X, np.ndarray):
+            X = [X] * len(Y)
+        else:
+            # Is it a list then?
+            assert len(X) == len(Y)
+
     fig = rplot(y=Y, x=X, uncertainty=V, distribution=distribution, xlabel=xlabel, ylabel=ylabel, legend=legend)
 
     return fig
 
 
 def rscatter(y, x=None, color=None, xlabel=None, ylabel=None,
-          legend=None, size='halfpage', ratio='4:3', nameFile=False, yticks=None, xticks=None):
+          legend=None, size='halfpage', ratio='4:3', nameFile=False, yticks=None, xticks=None, sizeMarkers=100):
     """
 
     :param y:
@@ -115,7 +130,7 @@ def rscatter(y, x=None, color=None, xlabel=None, ylabel=None,
             else:
                 t = x
 
-        handle.append(plt.scatter(t, y[i], color=next(palette)))
+        handle.append(plt.scatter(t, y[i], color=next(palette), s=sizeMarkers))
 
     # Make figure nice
     if xlabel is not None:
@@ -226,7 +241,6 @@ def rplot(y, uncertainty=None, x=None, color=None, alpha=0.60, distribution='68+
         if usemarker is 'all':
             pass
 
-
         if (uncertainty is None) or (distribution is ''):
             # Plot only curve
             handle.append(plt.plot(t, y[i],
@@ -252,6 +266,7 @@ def rplot(y, uncertainty=None, x=None, color=None, alpha=0.60, distribution='68+
     if ylabel is not None:
         plt.ylabel(ylabel, fontsize=FONTSIZEFIG)
     if legend is not None:
+        # assert len(legend) == n_curves, 'Wrong number of legends!'
         plt.legend(legend, fontsize=legendfontsize)
     if xticks is not None:
         plt.xticks(xticks, fontsize=FONTSIZETICK)
@@ -302,46 +317,84 @@ def distribution_1D(y, percentiles, x=None, color=None, alpha=0.60, distribution
     return handle
 
 
-def gauss_1D(y, variance, x=None, color=None, alpha=0.60, distribution='68+95+99', linewidth=4, linestyle='-',
+class gauss_1D():
+    def __init__(self, y, variance, x=None, color=None, alpha=0.60, distribution='68+95+99', linewidth=4, linestyle='-',
              marker=None, markersize=10, markevery=0.1, label=None):
-    """
+        """
+        Plot a gaussian distribution
+        :param y: np.array of dimensions n
+        :param variance: np.array of dimensions n
+        :param x: np.array of dimensions n
+        :param color:
+        :param distribution: string composed of the percentiles to be plotted separated by a +
+        :param alpha: Transparency level
+        :param linewidth:
+        :param linestyle:
+        :param marker:
+        :param markersize:
+        :param label:
+        :return:
+        """
 
-    :param y: np.array of dimensions n
-    :param variance: np.array of dimensions n
-    :param x: np.array of dimensions n
-    :param color:
-    :param distribution: string composed of the percentiles to be plotted separated by a +
-    :param alpha: Transparency level
-    :return:
-    """
+        self._handle = []
+        self._percentiles = []
+        self.distribution = distribution
+        self.alpha = alpha
+        self.markersize = markersize
+        self.linewidth = linewidth
 
-    n_points = len(y)
-    if x is None:
-        x = np.arange(n_points)
-    x = np.squeeze(np.array(x))
-    y = np.squeeze(np.array(y))
-    variance = np.squeeze(np.array(variance))
-    assert x.ndim == 1, 'x must be a 1D np.array, instead ndim= %d' %(x.ndim)
-    assert y.ndim == 1, 'y must be a 1D np.array, instead ndim=  %d' %(y.ndim)
-    assert variance.ndim == 1, 'variance must be a 1D np.array, instead ndim=  %d' %(variance.ndim)
-    assert len(y) == len(variance), 'Dimensions variance do not match dimensions y'
-    assert len(y) == len(x), 'Dimensions x do not match dimensions y'
-    if color is None:
-        handle, = plt.plot(x, y, linewidth=linewidth, linestyle=linestyle,
-                           marker=marker, markersize=markersize, markevery=markevery)
-    else:
-        handle, = plt.plot(x, y, linewidth=linewidth, linestyle=linestyle,
-                           marker=marker, markersize=markersize, markevery=markevery, color=color)
-    out = distribution.split("+")
-    n_percentiles = len(out)
-    sub_alpha = str(alpha / n_percentiles)  # Normalize w.r.t. the number of percentiles
-    for i in range(n_percentiles):
-        try:
+        n_points = len(y)
+        if x is None:
+            x = np.arange(n_points)
+        x = np.squeeze(np.array(x))
+        y = np.squeeze(np.array(y))
+        variance = np.squeeze(np.array(variance))
+        assert x.ndim == 1, 'x must be a 1D np.array, instead ndim= %d' % x.ndim
+        assert y.ndim == 1, 'y must be a 1D np.array, instead ndim=  %d' % y.ndim
+        assert variance.ndim == 1, 'variance must be a 1D np.array, instead ndim=  %d' % variance.ndim
+        assert len(y) == len(variance), 'Dimensions variance do not match dimensions y'
+        assert len(y) == len(x), 'Dimensions x do not match dimensions y'
+        if color is None:
+            self._handle, = plt.plot(x, y, linewidth=linewidth, linestyle=linestyle,
+                                     marker=marker, markersize=markersize, markevery=markevery)
+        else:
+            self._handle, = plt.plot(x, y, linewidth=linewidth, linestyle=linestyle,
+                                     marker=marker, markersize=markersize, markevery=markevery, color=color)
+        out = self.distribution.split("+")
+        n_percentiles = len(out)
+        sub_alpha = str(self.alpha / n_percentiles)  # Normalize w.r.t. the number of percentiles
+        for i in range(n_percentiles):
+            try:
+                percentile = float(out[i])
+                assert 0 <= percentile <= 100, 'Percentile must be >0 & <100. Instead is %f' % percentile
+                interval = scipy.stats.norm.interval(percentile/100, loc=y, scale=np.sqrt(variance))
+                interval = np.nan_to_num(interval)  # Fix stupid case of norm.interval(0) returning nan
+                self._percentiles.append(plt.fill_between(x, interval[0], interval[1], color=self._handle.get_color(), alpha=sub_alpha))
+            except ValueError:
+                pass
+
+    def set_data(self, y, variance, x=None):
+        """
+        update a gauss_1D with new data
+        :param y: 
+        :param variance: 
+        :param x: 
+        :return: 
+        """
+        n_points = len(y)
+        if x is None:
+            x = np.arange(n_points)
+        self._handle.set_data(x, y)  # Update mean
+        new_percentiles = []
+        out = self.distribution.split("+")
+        n_percentiles = len(out)
+        sub_alpha = str(self.alpha / n_percentiles)  # Normalize w.r.t. the number of percentiles
+        for i, percentile in enumerate(self._percentiles):
+            percentile.remove()
             percentile = float(out[i])
-            assert 0 <= percentile <= 100, 'Percentile must be >0 <100; instead is %f' % percentile
+            assert 0 <= percentile <= 100, 'Percentile must be >0 & <100. Instead is %f' % percentile
             interval = scipy.stats.norm.interval(percentile/100, loc=y, scale=np.sqrt(variance))
             interval = np.nan_to_num(interval)  # Fix stupid case of norm.interval(0) returning nan
-            plt.fill_between(x, interval[0], interval[1], color=handle.get_color(), alpha=sub_alpha)
-        except ValueError:
-            pass
-    return handle
+            new_percentiles.append(plt.fill_between(x, interval[0], interval[1], color=self._handle.get_color(), alpha=sub_alpha))
+        #       TODO: not implemented yet
+        pass

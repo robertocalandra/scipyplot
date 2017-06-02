@@ -4,3 +4,4 @@ seaborn >= 0.7  # Plot fancy stuff
 future >= 0.15.2 # Compatibility for python 2/3
 scipy >= 0.18
 colorama >= 0.3.7
+dotmap  >= 1.2.8  # To use dict with dot access

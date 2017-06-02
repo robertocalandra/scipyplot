@@ -1,5 +1,7 @@
+# Compatibility Python 2/3
 from __future__ import division, print_function, absolute_import
-from builtins import range, input
+from builtins import range
+# ----------------------------------------------------------------------------------------------------------------------
 
 import matplotlib.pyplot as plt
 from ..save2file import save2file
