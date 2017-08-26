@@ -15,10 +15,10 @@ import seaborn.apionly as sns
 from scipyplot.plot.save2file import save2file
 
 __author__ = 'Roberto Calandra'
-__version__ = '0.5'
+__version__ = '0.51'
 
 
-def rplot_data(data, x=None, typeplot='mean+68+95+99', legend=None, xlabel=None, ylabel=None):
+def rplot_data(data, x=None, typeplot='mean+68+95+99', legend=None, xlabel=None, ylabel=None, color=None):
     """
     Plot curves from raw data (wrapper around rplot).
     Given a matrix of data, this function automatically compute statistics (such as mean and var) and plot them.
@@ -32,6 +32,7 @@ def rplot_data(data, x=None, typeplot='mean+68+95+99', legend=None, xlabel=None,
     :param legend: list of labels, one for each curve
     :param xlabel: String. label for the x axis
     :param ylabel: String. label for the y axis
+    :param color:
     :return:
     """
     if isinstance(data, np.ndarray):
@@ -59,7 +60,8 @@ def rplot_data(data, x=None, typeplot='mean+68+95+99', legend=None, xlabel=None,
             # Is it a list then?
             assert len(X) == len(Y)
 
-    fig = rplot(y=Y, x=X, uncertainty=V, distribution=distribution, xlabel=xlabel, ylabel=ylabel, legend=legend)
+    fig = rplot(y=Y, x=X, uncertainty=V, distribution=distribution, xlabel=xlabel, ylabel=ylabel, legend=legend,
+                color=color)
 
     return fig
 
@@ -223,6 +225,10 @@ def rplot(y, uncertainty=None, x=None, color=None, alpha=0.60, distribution='68+
 
     # Plot central curves
     for i in range(n_curves):
+        if color is not None:
+            colorcurve = color[i]
+        else:
+            colorcurve = None
         n_points = y[i].shape[0]
         if x is None:
             t = np.arange(n_points)
@@ -243,9 +249,14 @@ def rplot(y, uncertainty=None, x=None, color=None, alpha=0.60, distribution='68+
 
         if (uncertainty is None) or (distribution is ''):
             # Plot only curve
-            handle.append(plt.plot(t, y[i],
-                                   marker=next(marker), markersize=markersize, markevery=markerevery,
-                                   linestyle='-', linewidth=linewidth))
+            if colorcurve is None:
+                handle.append(plt.plot(t, y[i],
+                                       marker=next(marker), markersize=markersize, markevery=markerevery,
+                                       linestyle='-', linewidth=linewidth))
+            else:
+                handle.append(plt.plot(t, y[i],
+                                       marker=next(marker), markersize=markersize, markevery=markerevery,
+                                       linestyle='-', linewidth=linewidth, color=colorcurve))
         else:
             # Plot also distribution
             assert isinstance(uncertainty[i], np.ndarray)
@@ -253,12 +264,12 @@ def rplot(y, uncertainty=None, x=None, color=None, alpha=0.60, distribution='68+
                 handle.append(gauss_1D(y=y[i], x=t, variance=uncertainty[i], alpha=alpha,
                                        marker=next(marker), markersize=markersize, markevery=markerevery,
                                        linestyle='-', linewidth=linewidth,
-                                       distribution=distribution))
+                                       distribution=distribution, color=colorcurve))
             else:
                 handle.append(distribution_1D(y=y[i], x=t, percentiles=uncertainty[i], alpha=alpha,
                                               marker=next(marker), markersize=markersize, markevery=markerevery,
                                               linestyle='-', linewidth=linewidth,
-                                              distribution=distribution))
+                                              distribution=distribution, color=colorcurve))
 
     # Make figure nice
     if xlabel is not None:

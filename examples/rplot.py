@@ -30,6 +30,14 @@ x.append(np.random.rand(50, 20)+2)
 fig = rplot_data(data=x)
 plt.show()
 
+# Raw data
+x = []
+x.append(np.random.rand(100, 30))
+x.append(np.random.rand(50, 20)+2)
+# ---
+fig = rplot_data(data=x, color=['red', 'green'])
+plt.show()
+
 
 # Mean vs median
 NUM_SAMPLES = 500000  # Number curves within each distribution (e.g., the number of repetitions of each experiment)
