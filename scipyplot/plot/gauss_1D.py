@@ -18,14 +18,14 @@ __author__ = 'Roberto Calandra'
 __version__ = '0.51'
 
 
-def rplot_data(data, x=None, typeplot='mean+68+95+99', legend=None, xlabel=None, ylabel=None, color=None):
+def rplot_data(data, x=None, distribution='mean+68+95+99', legend=None, xlabel=None, ylabel=None, color=None):
     """
     Plot curves from raw data (wrapper around rplot).
     Given a matrix of data, this function automatically compute statistics (such as mean and var) and plot them.
     Multiple curves (potentially with different lenght) can be plot simultaneously by passing a list of matrices.
     :param data: list of np.matrix
     :param x: list of np.array (or single np.array) indicating the x valued for the corresponding data
-    :param typeplot: String formatted as 'mean' or 'median' followed from the percentiles of the uncertainty curves
+    :param distribution: String formatted as 'mean' or 'median' followed from the percentiles of the uncertainty curves
         (interleaved by '+').
         Example 1: 'mean+68+95+99' plot the mean and one shaded area for each corresponding 68/95/99 percentile
         Example 2: 'median+68' Plot the median and the 68 percentile
@@ -38,14 +38,14 @@ def rplot_data(data, x=None, typeplot='mean+68+95+99', legend=None, xlabel=None,
     if isinstance(data, np.ndarray):
         data = [data]
     # Parse data
-    out = typeplot.split("+")
-    distribution = "+".join(out[1:])
+    out = distribution.split("+")
+    odistribution = "+".join(out[1:])
     Y = []
     V = []
     X = x
     for i in range(len(data)):
         if out[0] == 'median':
-            median, quantiles = rstats.median_percentile(data[i])
+            median, quantiles = rstats.median_percentile(data[i], des_percentiles=odistribution)
             Y.append(median)
             V.append(quantiles)
         if out[0] == 'mean':
@@ -60,7 +60,7 @@ def rplot_data(data, x=None, typeplot='mean+68+95+99', legend=None, xlabel=None,
             # Is it a list then?
             assert len(X) == len(Y)
 
-    fig = rplot(y=Y, x=X, uncertainty=V, distribution=distribution, xlabel=xlabel, ylabel=ylabel, legend=legend,
+    fig = rplot(y=Y, x=X, uncertainty=V, distribution=odistribution, xlabel=xlabel, ylabel=ylabel, legend=legend,
                 color=color)
 
     return fig

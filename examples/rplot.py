@@ -35,9 +35,17 @@ x = []
 x.append(np.random.rand(100, 30))
 x.append(np.random.rand(50, 20)+2)
 # ---
-fig = rplot_data(data=x, color=['red', 'green'])
+fig = rplot_data(data=x, color=['red', 'green'], distribution='median+65')
 plt.show()
 
+
+# Raw data
+x = []
+x.append(np.random.rand(100, 30))
+x.append(np.random.rand(50, 20)+2)
+# ---
+fig = rplot_data(data=x, color=['red', 'green'], distribution='median+65+95')
+plt.show()
 
 # Mean vs median
 NUM_SAMPLES = 500000  # Number curves within each distribution (e.g., the number of repetitions of each experiment)
@@ -63,12 +71,12 @@ for index, alpha_skew in enumerate(SKEW_PARAMS):
     Y.append(np.array(t).transpose())
 
 plt.figure()
-fig = rplot_data(data=Y, typeplot='mean+68+95+99', legend=['Skewed', 'Gaussian'])
+fig = rplot_data(data=Y, distribution='mean+68+95+99', legend=['Skewed', 'Gaussian'])
 ax = plt.gca()
 ax.set_title('Mean + percentiles')
 
 plt.figure()
-fig = rplot_data(data=Y, typeplot='median+68+95+99', legend=['Skewed', 'Gaussian'])
+fig = rplot_data(data=Y, distribution='median+68+95+99', legend=['Skewed', 'Gaussian'])
 ax = plt.gca()
 ax.set_title('Median + percentiles')
 plt.show()
