@@ -20,7 +20,7 @@ def read(fname):
     return open(os.path.join(BASE_DIR, fname)).read()
 
 setup(name='scipyplot',
-      version='0.0.3',
+      version='0.0.5',
       description='A Python Toolbox for Creating Scientific Article Figures',
       url='https://github.com/robertocalandra/scipyplot',
       author='Roberto Calandra',
