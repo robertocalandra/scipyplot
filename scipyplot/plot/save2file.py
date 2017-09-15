@@ -22,7 +22,7 @@ def save2file(nameFile, fig=plt.gcf(), fileFormat='pdf', verbosity=1, indent=0, 
     fullNameFile = nameFile + '.' + fileFormat
     log.cnd_msg(verbosity, 0, 'Saving to file: ' + fullNameFile, indent_depth=indent)
     try:
-        fig.savefig(fullNameFile, dpi=dpi, bbox_inches='tight')
+        fig.savefig(fullNameFile, dpi=dpi, bbox_inches='tight', pad_inches=0)
         status = 0
     except:
         log.cnd_warning(verbosity, 1, str(sys.exc_info()[0]))
