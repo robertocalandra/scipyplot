@@ -2,7 +2,7 @@ import numpy as np
 import scipy.stats
 
 __author__ = 'Roberto Calandra'
-__version__ = '0.4'
+__version__ = '0.5'
 
 
 def mean_var(data):
@@ -27,7 +27,7 @@ def mean_percentile(data, des_percentiles='68+95+99'):
     :return:
     """
     mean, variance = mean_var(data=data)
-    out = np.array(map(int, des_percentiles.split("+")))
+    out = np.array(list(map(int, des_percentiles.split("+"))))
     for i in range(out.size):
         assert 0 <= out[i] <= 100, 'Percentile must be >0 <100; instead is %f' % out[i]
     percentiles = percentileFromGaussian(mean=mean, variance=variance, percentile=out)
@@ -42,7 +42,7 @@ def median_percentile(data, des_percentiles='68+95+99'):
     :return:
     """
     median = np.nanmedian(data, axis=0)
-    out = np.array(map(int, des_percentiles.split("+")))
+    out = np.array(list(map(int, des_percentiles.split("+"))))
     for i in range(out.size):
         assert 0 <= out[i] <= 100, 'Percentile must be >0 <100; instead is %f' % out[i]
     list_percentiles = np.empty((2*out.size,), dtype=out.dtype)
