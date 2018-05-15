@@ -43,10 +43,12 @@ def surface(X, Y, Z, type='2D', cmap=cm.magma_r):
     :return:
     """
     if type == '2D':
-        plt.imshow(Z, origin="lower", extent=[X.min(), X.max(), Y.min(), Y.max()], cmap=cmap)
+        h = plt.imshow(Z, origin="lower", extent=[X.min(), X.max(), Y.min(), Y.max()], cmap=cmap)
         # TODO: tight axis
         # TODO: nicefigure
 
     if type == '3D':
         # surf = ax.plot_surface(xx, yy, Y_plot.reshape(100, 100), cmap=colormap)
         pass
+
+    return h

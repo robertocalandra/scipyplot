@@ -170,6 +170,7 @@ def rplot(y, uncertainty=None, x=None, color=None, alpha=0.60, distribution='68+
     :param size: Automatically adjust size fonts based on the final size of the image ('fullpage', 'halfpage')
     :param ratio:
     :param nameFile:
+    :param usemarker: ['none','auto', 'full']
     :param markerspace:
     :param yticks:
     :param xticks:
